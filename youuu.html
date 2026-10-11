@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffc1dc, #fff0f6, #ffcee5);
+  overflow-x: hidden;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px 23px;
+  text-align: center;
+  background: rgba(255,255,255,0.9);
+  border-radius: 25px;
+  box-shadow: 0 10px 35px #d6338430;
+  position: relative;
+  z-index: 2;
+  animation: muncul 1s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  color: #e84393;
+  font-size: 27px;
+}
+
+p {
+  color: #914466;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.envelope {
+  border: none;
+  background: none;
+  font-size: 85px;
+  cursor: pointer;
+  animation: detak 1.2s infinite;
+}
+
+.hint {
+  font-size: 13px;
+  color: #bd6790;
+}
+
+.love {
+  color: #e84393;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 22px 0;
+}
+
+.music-btn {
+  margin-top: 12px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 30px;
+  background: #e84393;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
+  z-index: 1;
+  animation: terbang 6s linear forwards;
+}
+
+@keyframes detak {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@keyframes muncul {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes terbang {
+  to {
+    transform: translateY(-110vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HALAMAN PEMBUKA -->
+<div class="card" id="opening">
+  <div style="font-size:45px">💌</div>
+
+  <h1>Hai, Mitaa ❤️</h1>
+
+  <p>
+    Ada sesuatu yang pengen aku sampaiin
+    ke kamu...
+  </p>
+
+  <button class="envelope" onclick="bukaPesan()">
+    💝
+  </button>
+
+  <p class="hint">
+    Tekan emoji hati untuk membuka pesan 💗
+  </p>
+</div>
+
+<!-- HALAMAN UNGKAPAN PERASAAN -->
+<div class="card hidden" id="message">
+  <div style="font-size:50px">💗</div>
+
+  <h1>Untuk Kamu</h1>
+
+  <p>
+    Sebenarnya ada sesuatu yang udah aku
+    pengen ungkapin ke kamu.
+  </p>
+
+  <p>
+    Aku senang setiap kali bisa chattingan
+    sama kamu. Entah kenapa, kamu selalu
+    punya cara untuk buat aku ngerasa excited kalau ada notif chat dari kamu.
+  </p>
+
+  <p>
+    Mungki ini terlalu cepet, tapi aku ga bisa bohong
+    sama diriku sendiri
+    aku juga sebenernya malu tapi ya udah
+    lebih baik aku ungkapin aja.
+  </p>
+
+  <div class="love">
+    Aku suka sama kamu ❤️
+  </div>
+
+  <p>
+    Aku gak berharap kamu harus memiliki
+    perasaan yang sama. Aku cuma mau jujur
+    tentang apa yang selama ini aku rasain.
+  </p>
+
+  <p>
+    Apa pun jawabanmu nanti, aku bakalan tetep
+    menghargai perasaanmu. Terima kasih
+    sudah menjadi seseorang yang selalu buat aku excited di setiap hari hahaha. 🌷
+  </p>
+
+  <p>💕 Dari aku buat kamu 💕</p>
+  <p> Denpasar 11 Oktober 2026</p>
+
+  <button class="music-btn" onclick="toggleMusik()">
+    🎵 Putar Musik
+  </button>
+</div>
+
+<audio id="musik" loop>
+  <source src="i lay.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function bukaPesan() {
+  document.getElementById("opening").classList.add("hidden");
+
+  const pesan = document.getElementById("message");
+  pesan.classList.remove("hidden");
+  pesan.style.animation = "muncul 1s ease";
+
+  for (let i = 0; i < 20; i++) {
+    setTimeout(buatHati, i * 120);
+  }
+}
+
+async function toggleMusik() {
+  const musik = document.getElementById("musik");
+  const tombol = document.querySelector(".music-btn");
+
+  if (musik.paused) {
+    try {
+      await musik.play();
+      tombol.textContent = "⏸ Jeda Musik";
+    } catch (error) {
+      alert("Pastikan file musik-romantis.mp3 ada di folder yang sama!");
+    }
+  } else {
+    musik.pause();
+    tombol.textContent = "🎵 Putar Musik";
+  }
+}
+
+function buatHati() {
+  const hati = document.createElement("div");
+  hati.className = "heart";
+  hati.textContent = ["💗", "💖", "💕", "❤️"][
+    Math.floor(Math.random() * 4)
+  ];
+
+  hati.style.left = Math.random() * 100 + "vw";
+  hati.style.fontSize = (18 + Math.random() * 20) + "px";
+
+  document.body.appendChild(hati);
+  setTimeout(() => hati.remove(), 6000);
+}
+
+setInterval(buatHati, 1400);
+</script>
+
+</body>
+</html>
